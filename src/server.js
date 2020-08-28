@@ -24,6 +24,8 @@ const port = process.env.PORT
 
 server.use(express.json())
 
+server.use("/songs", songsRouter)
+
 console.log(listEndPoints(server))
 
 mongoose
