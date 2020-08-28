@@ -19,6 +19,7 @@ server.use(express.json());
 server.use(require("cors"));
 
 server.use("/users", require("./routes/users"));
+server.use("/songs", require("./services/songs/index"))
 
 server.listen(port, () => {
     console.log("Running on", port);
