@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const usersRoutes = require("./routes/users");
+const cors = require("cors");
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -16,10 +17,10 @@ const server = express();
 
 server.use(express.json());
 
-server.use(require("cors"));
+server.use(cors());
 
-server.use("/users", require("./routes/users"));
+server.use("/users", usersRoutes);
 
-server.listen(port, () => {
+server.listen(3001, () => {
   console.log("Running on", port);
 });
