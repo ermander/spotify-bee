@@ -24,7 +24,4 @@ server.use("/songs", require("./services/songs/index"))
 
 server.listen(port, () => {
     console.log("Running on", port);
-
-
-
 });

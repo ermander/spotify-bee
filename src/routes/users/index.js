@@ -24,22 +24,4 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/songs", async (req, res, next) => {
-  try {
-    await fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem", {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-        "x-rapidapi-key": "2f5a19fa40mshcb5f92493e767e7p135e37jsn9a227a393d16",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        res.send({ data });
-      });
-  } catch (error) {
-    next(error);
-  }
-});
-
 module.exports = router;
