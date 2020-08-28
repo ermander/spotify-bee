@@ -1,6 +1,7 @@
 const express = require("express");
 const UserModel = require("./schema");
-
+const { authorize } = require("../middlewares/authorize")
+const { authenticate, refreshToken } = require("./authTools")
 const router = express.Router();
 
 router.post("/register", async (req, res, next) => {
@@ -14,15 +15,28 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/", authorize, async (req, res, next) => {
   try {
     const users = await UserModel.find();
     res.send(users);
+    console.log(users)
   } catch (error) {
     // next(error);
     res.send(error);
   }
 });
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const { username, password } = req.body
+    const user = await UserModel.findByCredentials(username, password)
+    const tokens = await authenticate(user)
+
+    res.send(tokens)
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.get("/songs", async (req, res, next) => {
   try {
